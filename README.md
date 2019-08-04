@@ -39,19 +39,33 @@ I was surprised that the Firefox workaround actually works with the code outside
 Some examples of what browsers are doing
 iOS (iPad):
 Mozilla/5.0 (iPad; CPU OS 7_0_3 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) CriOS/30.0.1599.16 Mobile/11B511 Safari/8536.25 (9E5413BC-7DB8-4B71-B876-69EDA4BAC03D)
+
 request desktop site changes it to:
 Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/534.53.11 (KHTML, like Gecko) Version/5.1.3 Safari/534.53.10 (9E5413BC-7DB8-4B71-B876-69EDA4BAC03D)
+
 Chrome for Android:
 Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76K) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19
+
 request desktop site changes it to:
 Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.45 Safari/535.19
-Firefox for Android has a similar feature that does switch the UA in exactly the way that this script should help with. Example:
+Firefox for Android has a similar feature that does switch the UA in exactly the way that this script should help with. 
+
+Example:
 Mozilla/5.0 (Android; Mobile; rv:25.0) Gecko/25.0 Firefox/25.0
 changes to 
 Mozilla/5.0 (X11; Linux x86_64; rv:25.0) Gecko/20100101 Firefox/25.0
-This feature is, however less than ideal in Firefox, at least for the purposes of this script helping users get what they want. Mozilla, in its infinite wisdom, has decided that one terrible practice (redirecting mobile users to an m.domain.org version of a site) deserves another: redirecting users to the apex domain, often losing all information about the page you were just on.  That means that if users are looking at a responsive page and want to "request the desktop version," they will likely end up on the wrong page (homepage) and have to know to go back. But wait, Mozilla sometimes erases the previous history item! Nice.  
+
+This feature is, however less than ideal in Firefox, at least for the purposes of this script helping users get what they want.
+Mozilla, in its infinite wisdom, has decided that one terrible practice (redirecting mobile users to an m.domain.org version of a site)
+deserves another: redirecting users to the apex domain, often losing all information about the page you were just on. 
+That means that if users are looking at a responsive page and want to "request the desktop version," they will likely end up on the wrong page (homepage) and have to know to go back. But wait, Mozilla sometimes erases the previous history item! Nice.  
 http://hg.mozilla.org/integration/mozilla-inbound/file/094819a5ee7a/mobile/android/chrome/content/browser.js#l2617
-Firefox mobile also ignores javascript-based changes to the content setting on the viewport tag.  But it _does_ seem to react to the addition of a second viewport tag, even if the page has already rendered.  So it requires a special path.
+
+Firefox mobile also ignores javascript-based changes to the content setting on the viewport tag. 
+But it _does_ seem to react to the addition of a second viewport tag, even if the page has already rendered. 
+
+So it requires a special path.
+
 Read more here (may be outdated):
 http://www.quirksmode.org/mobile/tableViewport.html#link4
 Final caveat: It may be that we need a much stronger, more specific set of regexes to detect this behavior. But as far as I know, no other mobile browsers have UA strings that first include Mobile and then later in the same _session_ do not include it. So it should be a pretty safe opt-in only sort of behavior.
