@@ -1,9 +1,6 @@
 # Responsive-Mobile-Desktop-site-usinf-Js
 How to make responsive sites better respect the "Request a desktop site" feature on modern mobile browsers.
 /*
-Enable the "Request Desktop Site" functions on mobile chrome (android and iOS) allow users to see desktop layouts on responsive sites. 
-Note that this is distinct from "opt out of mobile!" buttons built into your site: this is meant to work with the browser's native opt-in/opt-out functionality.  
-
 
 
 (function(d){
